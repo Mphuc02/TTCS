@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/blogs.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/categories.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/assets/include/admin_header.jsp" value="file://$PROJECT_DIR$/src/main/webapp/assets/include" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/assets/javascript/create_or_update_api.jsp" value="file://$PROJECT_DIR$/src/main/webapp/assets/javascript" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/views/admin/blogs.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/views/admin/categories.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/views/admin/create/categories.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/admin/create" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/views/admin/users.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/views/blog/create_blog.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/blog" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/views/blog/read_blog.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/blog" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/views/home/header.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/home" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/views/home/home.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/home" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/views/registraion/registraion.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/registraion" />
+      </map>
+    </option>
+  </component>
+</project>

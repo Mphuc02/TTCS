@@ -1,0 +1,26 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="final_modul">
+    <output-path>$PROJECT_DIR$/out/artifacts/final_modul</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="BTL_LTW-master" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0" />
+          <element id="library" level="project" name="Maven: jakarta.el:jakarta.el-api:5.0.0" />
+          <element id="library" level="project" name="Maven: org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.0" />
+          <element id="library" level="project" name="Maven: com.mysql:mysql-connector-j:8.0.32" />
+          <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.21.9" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.0" />
+          <element id="library" level="project" name="Maven: io.jsonwebtoken:jjwt-api:0.10.5" />
+          <element id="library" level="project" name="Maven: io.jsonwebtoken:jjwt-impl:0.10.5" />
+          <element id="library" level="project" name="Maven: io.jsonwebtoken:jjwt-jackson:0.10.5" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="BTL_LTW-master/web/Web" />
+    </root>
+  </artifact>
+</component>
