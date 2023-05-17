@@ -1,10 +1,10 @@
 package com.example.btl_web.controller.admin.api;
 
+import com.example.btl_web.configuration.ServiceConfiguration;
 import com.example.btl_web.constant.Constant;
 import com.example.btl_web.dto.CommentDto;
 import com.example.btl_web.dto.UserDto;
 import com.example.btl_web.service.UserBlogService;
-import com.example.btl_web.service.impl.UserBlogServiceImpl;
 import com.example.btl_web.utils.HttpUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
@@ -18,7 +18,7 @@ import java.util.Collections;
 
 @WebServlet(urlPatterns = Constant.User.USER_COMMENT_API)
 public class CommentApi extends HttpServlet {
-    private UserBlogService userBlogService = UserBlogServiceImpl.getInstance();
+    private UserBlogService userBlogService = ServiceConfiguration.getUserBlogService();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");

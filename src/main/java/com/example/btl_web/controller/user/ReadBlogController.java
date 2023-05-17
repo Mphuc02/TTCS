@@ -1,9 +1,8 @@
 package com.example.btl_web.controller.user;
 
+import com.example.btl_web.configuration.ServiceConfiguration;
 import com.example.btl_web.dto.BlogDto;
-import com.example.btl_web.dto.CategoryDto;
 import com.example.btl_web.service.BlogService;
-import com.example.btl_web.service.impl.BlogServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,14 +14,16 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = User.READ_BLOG_PAGE)
 public class ReadBlogController extends HttpServlet {
-    private BlogService blogService = BlogServiceImpl.getInstance();
+    private BlogService blogService = ServiceConfiguration.getBlogService();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idStr = request.getPathInfo().split("/")[1];
         if(idStr!= null)
         {
             Long id = Long.parseLong(idStr);
-            BlogDto blogDto = blogService.getOneById(id);
+            BlogDto blogDto = new BlogDto();
+            blogDto.setBlogId(id);
+            blogDto = blogService.getOne(blogDto);
             if(blogDto != null)
             {
                 request.setAttribute("blog",blogDto);

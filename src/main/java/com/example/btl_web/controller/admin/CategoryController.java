@@ -1,5 +1,6 @@
 package com.example.btl_web.controller.admin;
 
+import com.example.btl_web.configuration.ServiceConfiguration;
 import com.example.btl_web.dto.CategoryDto;
 import com.example.btl_web.paging.PageRequest;
 import com.example.btl_web.paging.Pageable;
@@ -18,10 +19,10 @@ import java.util.List;
 
 @WebServlet(urlPatterns = Admin.CATEGORIES_PAGE)
 public class CategoryController extends HttpServlet {
-    private CategoryService categoryService = CategoryServiceImpl.getInstance();
+    private CategoryService categoryService = ServiceConfiguration.getCategoryService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long totalCategories = categoryService.countCategories();
+        long totalCategories = categoryService.countCategories(null);
         Pageable pageable = new PageRequest(req.getParameterMap(), totalCategories );
         req.setAttribute("pageable", pageable);
 

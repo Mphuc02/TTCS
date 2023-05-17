@@ -18,8 +18,8 @@ public class JwtUtils {
     }
     public void addAToken(HttpServletResponse resp, UserDto user)
     {
-        //long oneDayTime = 1000 * 60 * 60 * 24;
-        long oneDayTime = 1000 * 60;
+        long oneDayTime = 1000 * 60 * 60 * 5; //Token hết hạn sau 5 tiếng
+        //long oneDayTime = 1000 * 60; 1 Phút
         Date timeNow = new Date();
         Date timeExpirate = new Date(timeNow.getTime() + oneDayTime);
 

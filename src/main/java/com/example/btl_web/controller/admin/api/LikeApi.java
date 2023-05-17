@@ -1,13 +1,12 @@
 package com.example.btl_web.controller.admin.api;
 
+import com.example.btl_web.configuration.ServiceConfiguration;
 import com.example.btl_web.constant.Constant;
 import com.example.btl_web.constant.Constant.*;
 import com.example.btl_web.dto.BlogDto;
 import com.example.btl_web.dto.UserDto;
 import com.example.btl_web.service.UserBlogService;
 import com.example.btl_web.service.UserService;
-import com.example.btl_web.service.impl.UserBlogServiceImpl;
-import com.example.btl_web.service.impl.UserServiceimpl;
 import com.example.btl_web.utils.HttpUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
@@ -21,8 +20,8 @@ import java.util.Collections;
 
 @WebServlet(urlPatterns = User.USER_LIKE_API)
 public class LikeApi extends HttpServlet {
-    private UserService userService = UserServiceimpl.getInstance();
-    private UserBlogService userBlogService = UserBlogServiceImpl.getInstance();
+    private UserService userService = ServiceConfiguration.getUserService();
+    private UserBlogService userBlogService = ServiceConfiguration.getUserBlogService();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -33,7 +32,7 @@ public class LikeApi extends HttpServlet {
 
         ObjectMapper mapper = new ObjectMapper();
         String[] errors = new String[1];
-        Long timevalid = userService.checkLastAction(user.getUserId());
+        String timevalid = userService.checkLastAction(user.getUserId());
         if(timevalid == null)
         {
             BlogDto likedBlog = HttpUtils.of(req.getReader()).toModel(BlogDto.class);
@@ -52,7 +51,7 @@ public class LikeApi extends HttpServlet {
                 return;
             }
         }
-        errors[0] = "Bạn thao tác quá nhanh, vui lòng thử lại sau " + timevalid;
+        errors[0] = timevalid;
         resp.getOutputStream().write(mapper.writeValueAsBytes(Collections.singletonMap("errors", errors)));
         resp.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
     }

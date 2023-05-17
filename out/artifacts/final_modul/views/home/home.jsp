@@ -78,7 +78,7 @@
                         </div>
 
                         <div class="truyen1__anh">
-                            <img src="https://tse3.mm.bing.net/th?id=OIP.PqG8_JFVxNv5W1iJ6A9YaAHaFA&pid=Api&P=0" alt="">
+                            <img src="${imageTitle}" alt="">
                         </div>
                     </div>
                 </c:forEach>

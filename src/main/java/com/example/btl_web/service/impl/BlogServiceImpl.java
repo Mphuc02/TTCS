@@ -1,5 +1,6 @@
 package com.example.btl_web.service.impl;
 
+import com.example.btl_web.configuration.ServiceConfiguration;
 import com.example.btl_web.dao.BlogDao;
 import com.example.btl_web.dao.UserDao;
 import com.example.btl_web.dao.impl.BlogDaoImpl;
@@ -17,6 +18,7 @@ import com.example.btl_web.service.CategoryService;
 import com.example.btl_web.service.UserBlogService;
 import com.example.btl_web.service.UserService;
 import com.example.btl_web.utils.ConvertUtils;
+import com.example.btl_web.utils.FileUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,15 +27,9 @@ import java.util.List;
 public class BlogServiceImpl implements BlogService {
     private BlogDao blogDao = BlogDaoImpl.getInstance();
     private UserDao userDao = UserDaoImpl.getInstance();
-    private UserBlogService userBlogService = UserBlogServiceImpl.getInstance();
-    private static BlogServiceImpl blogService;
-    private static CategoryService categoryService = CategoryServiceImpl.getInstance();
-    public static BlogServiceImpl getInstance()
-    {
-        if(blogService == null)
-            blogService = new BlogServiceImpl();
-        return blogService;
-    }
+    private UserBlogService userBlogService = ServiceConfiguration.getUserBlogService();
+    private CategoryService categoryService = ServiceConfiguration.getCategoryService();
+    private UserService userService = ServiceConfiguration.getUserService();
 
     @Override
     public List<BlogDto> getAllBlogs(Pageable pageable, BlogDto dto) {
@@ -51,24 +47,23 @@ public class BlogServiceImpl implements BlogService {
         return dtos;
     }
     @Override
-    public BlogDto getOneById(Long blogId) {
-        BlogDto blog = new BlogDto();
-        blog.setBlogId(blogId);
+    public BlogDto getOne(BlogDto searchBlog) {
+        BlogDto result = new BlogDto();
 
-        List<BlogDto> blogDtos = getAllBlogs(null, blog);
+        List<BlogDto> blogDtos = getAllBlogs(null, searchBlog);
         if(blogDtos.isEmpty())
             return null;
-        blog = blogDtos.get(0);
-        blog.setCategoriesList(categoryService.findAllCategoryOfBlog(blogId, 1));
-        blog.setLikedUsers(peopleLikedBlog(blogId));
+        result = blogDtos.get(0);
+        result.setCategoriesList(categoryService.findAllCategoryOfBlog(result.getBlogId(), 1));
+        result.setLikedUsers(peopleLikedBlog(result.getBlogId()));
 
         CommentDto commentDto = new CommentDto();
-        commentDto.setBlogComment(blogId);
+        commentDto.setBlogComment(result.getBlogId());
         Pageable pageable = new PageRequest(new HashMap<>(), 10L);
         List<CommentDto> commentsOfBlog = userBlogService.findAll(pageable, commentDto);
-        blog.setComments(commentsOfBlog);
+        result.setComments(commentsOfBlog);
 
-        return blog;
+        return result;
     }
 
     @Override
@@ -80,6 +75,9 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Long save(BlogDto blog) {
+        //Thêm các thẻ <p> và </p> vào mỗi dòng của truyện
+        addPTagContent(blog);
+
         Date timeStamp = new Date();
         String sql = "INSERT INTO BLOGS (content, created_at, title, user_id, status) values (?, ?, ?, ?, 2)";
 
@@ -91,8 +89,14 @@ public class BlogServiceImpl implements BlogService {
         if(saveCategories == null)
             return null;
 
+        //Cập nhật link ảnh tiêu đề
+        BlogDto saveImageUrl = new BlogDto();
+        saveImageUrl.setBlogId(saveBlog);
+        String imageUrl = FileUtils.saveImageToServer(blog.getImageTitleData(), saveBlog);
+        saveImageUrl.setImageTitle(imageUrl);
+        update(saveImageUrl);
+
         //Lưu hoạt động gần đây nhất của User
-        UserService userService = new UserServiceimpl();
         userService.updateLastAction(blog.getUser());
         return saveBlog;
     }
@@ -105,42 +109,46 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public boolean validCreateBlog(String[] errors, BlogDto blog) {
-        if(!validUpdateBlog(errors, blog))
+    public boolean validCreateBlog(String[] messages, BlogDto blog) {
+        String timeValid = userService.checkLastAction(blog.getUser().getUserId());
+        if(timeValid != null)
+        {
+            messages[0] = timeValid;
             return false;
+        }
 
         boolean result = true;
-        if(blog.getTitle().isEmpty())
+        if(blog.getTitle() == null || blog.getTitle().isEmpty())
         {
             result = false;
-            errors[0] = "Tiêu đề không được để trống";
+            messages[0] = "Tiêu đề không được để trống";
         }
         if(blog.getImageTitleData() == null)
         {
             result = false;
-            errors[1] = "Ảnh tiêu đề không được để trống";
+            messages[1] = "Ảnh tiêu đề không được để trống";
         }
-        if(blog.getCategories().isEmpty())
+        if(blog.getCategories() == null || blog.getCategories().isEmpty())
         {
             result = false;
-            errors[2] = "Phải chọn ít nhất 1 thể loại";
+            messages[2] = "Phải chọn ít nhất 1 thể loại";
         }
 
-        if(blog.getContent().isEmpty())
+        if(blog.getContent() == null || blog.getContent().isEmpty())
         {
             result = false;
-            errors[3] = "Nội dung truyện không được để trống";
+            messages[3] = "Nội dung truyện không được để trống";
         }
+
         return result;
     }
 
     @Override
-    public boolean validUpdateBlog(String[] errors, BlogDto blog) {
-        UserService userService = new UserServiceimpl();
-        Long validTime = userService.checkLastAction(blog.getUser().getUserId());
+    public boolean validUpdateBlog(String[] messages, BlogDto blog, Long userId) {
+        String validTime = userService.checkLastAction(userId);
         if(validTime != null)
         {
-            errors[0] = "Bạn thao tác quá nhanh, vui lòng thử lại sau " + validTime;
+            messages[0] = validTime;
             return false;
         }
 
@@ -148,7 +156,10 @@ public class BlogServiceImpl implements BlogService {
         dto.setBlogId(blog.getBlogId());
         List<BlogDto> checkBlogExisted = getAllBlogs(null, dto);
         if(checkBlogExisted == null || checkBlogExisted.isEmpty())
+        {
+            messages [0] = "Bài viết chỉnh sửa không tồn tại";
             return false;
+        }
 
         return true;
     }
@@ -171,6 +182,25 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public boolean checkUserLikedBlog(BlogDto blog, Long userId) {
         return false;
+    }
+
+    @Override
+    public void addPTagContent(BlogDto blog) {
+        String oldContent = blog.getContent();
+        StringBuilder newContent = new StringBuilder("");
+        String lines[] = oldContent.split("\\n");
+        for(String line: lines)
+        {
+            newContent.append("<p>").append(line).append("</p>\n");
+        }
+        blog.setContent(newContent.toString());
+    }
+
+    @Override
+    public void removePTagContent(BlogDto blog) {
+        String oldContent = blog.getContent();
+        oldContent = oldContent.replaceAll("<p>|</p>", "");
+        blog.setContent(oldContent);
     }
 
     private StringBuilder addAndClause(Pageable pageable ,BlogDto dto)
@@ -236,9 +266,9 @@ public class BlogServiceImpl implements BlogService {
         if(title != null)
             sb.append(", title = '" + title + "'");
         if(content != null)
-            sb.append(", content '" + content + "'");
+            sb.append(", content = '" + content + "'");
         if(imageTitle != null)
-            sb.append(", content '" + content + "'");
+            sb.append(", image_title = '" + imageTitle + "'");
         if(createAt != null)
             sb.append(", created_at = " + createAt);
         if(status != null)

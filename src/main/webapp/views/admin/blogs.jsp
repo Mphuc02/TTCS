@@ -126,11 +126,11 @@
             {
                 if(status == 200) {
                     var blogStatus = document.querySelector("#blog-status")
-                    alert("Cập nhật trạng thái thành công!")
+                    alert(errors.messages)
                     window.location.reload()
                 }
                 else{
-                    alert("Không thể cập nhật trạng thái!")
+                    alert(errors.errors[0])
                 }
             })
         }

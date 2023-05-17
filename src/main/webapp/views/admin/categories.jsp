@@ -122,11 +122,11 @@
 
             formSubmit(data, '${api_url}', 'DELETE', function (errors, status){
                 if(status == 200){
-                    alert("Cập nhật trạng thái thành công!")
+                    alert(errors.messages)
                     window.location.reload()
                 }
                 else{
-                    alert("Không thể cập nhật trạng thái!")
+                    alert(errors.errors[0]);
                 }
             })
         }

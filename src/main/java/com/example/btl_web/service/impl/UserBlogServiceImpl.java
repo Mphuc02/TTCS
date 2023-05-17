@@ -1,5 +1,6 @@
 package com.example.btl_web.service.impl;
 
+import com.example.btl_web.configuration.ServiceConfiguration;
 import com.example.btl_web.dao.CommentDao;
 import com.example.btl_web.dao.UserDao;
 import com.example.btl_web.dao.impl.CommentDaoImpl;
@@ -22,14 +23,7 @@ import java.util.List;
 public class UserBlogServiceImpl implements UserBlogService {
     private CommentDao commentDao = CommentDaoImpl.getInstance();
     private UserDao userDao = UserDaoImpl.getInstance();
-    private static UserBlogServiceImpl userBogService;
-    public static UserBlogServiceImpl getInstance()
-    {
-        if(userBogService == null)
-            userBogService = new UserBlogServiceImpl();
-        return userBogService;
-    }
-
+    private UserService userService = ServiceConfiguration.getUserService();
     @Override
     public List<CommentDto> findAll(Pageable pageable, CommentDto comment) {
         pageable.setLimit(1000);
@@ -51,7 +45,6 @@ public class UserBlogServiceImpl implements UserBlogService {
         Long saveCommentStatus = commentDao.update(sql, comment.getContent(), comment.getBlogComment(), comment.getUserComment().getUserId(), timeStamp.getTime());
         if(saveCommentStatus != null)
         {
-            UserService userService = new UserServiceimpl();
             return userService.updateLastAction(comment.getUserComment());
         }
         return false;
@@ -65,7 +58,6 @@ public class UserBlogServiceImpl implements UserBlogService {
         Long status = commentDao.update(sql);
 
         //Lưu hoạt động gần đây nhất của user
-        UserService userService = new UserServiceimpl();
         UserDto userDto = new UserDto();
         userDto.setUserId(userId);
         userService.updateLastAction(userDto);
@@ -114,11 +106,10 @@ public class UserBlogServiceImpl implements UserBlogService {
     }
     private boolean userCanDoAction(String errors[], Long userId)
     {
-        UserService userService = new UserServiceimpl();
-        Long timeValid = userService.checkLastAction(userId);
+        String timeValid = userService.checkLastAction(userId);
         if(timeValid != null)
         {
-            errors[0] = "Bạn thao tác quá nhanh, vui lòng thử lại sau " + timeValid;
+            errors[0] = timeValid;
             return false;
         }
         return true;

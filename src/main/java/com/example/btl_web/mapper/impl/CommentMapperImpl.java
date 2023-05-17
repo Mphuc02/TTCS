@@ -1,17 +1,17 @@
 package com.example.btl_web.mapper.impl;
 
+import com.example.btl_web.configuration.ServiceConfiguration;
 import com.example.btl_web.dto.UserDto;
 import com.example.btl_web.mapper.RowMapper;
 import com.example.btl_web.model.Comment;
 import com.example.btl_web.service.UserService;
-import com.example.btl_web.service.impl.UserServiceimpl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 public class CommentMapperImpl implements RowMapper {
-    private UserService userService = UserServiceimpl.getInstance();
+    private UserService userService = ServiceConfiguration.getUserService();
     @Override
     public Comment mapper(ResultSet resultSet) {
         Comment comment = new Comment();

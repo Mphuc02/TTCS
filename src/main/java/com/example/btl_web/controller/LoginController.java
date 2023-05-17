@@ -1,10 +1,10 @@
 package com.example.btl_web.controller;
 
+import com.example.btl_web.configuration.ServiceConfiguration;
 import com.example.btl_web.constant.Constant;
 import com.example.btl_web.constant.Constant.*;
 import com.example.btl_web.dto.UserDto;
 import com.example.btl_web.service.UserService;
-import com.example.btl_web.service.impl.UserServiceimpl;
 import com.example.btl_web.utils.JwtUtils;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -17,7 +17,7 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/login")
 public class LoginController extends HttpServlet {
-    private UserService userService = UserServiceimpl.getInstance();
+    private UserService userService = ServiceConfiguration.getUserService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher rd = req.getRequestDispatcher(Constant.LOGIN_JSP);

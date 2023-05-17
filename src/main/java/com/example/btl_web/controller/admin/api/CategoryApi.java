@@ -1,10 +1,10 @@
 package com.example.btl_web.controller.admin.api;
 
+import com.example.btl_web.configuration.ServiceConfiguration;
 import com.example.btl_web.constant.Constant;
 import com.example.btl_web.dto.CategoryDto;
 import com.example.btl_web.dto.UserDto;
 import com.example.btl_web.service.CategoryService;
-import com.example.btl_web.service.impl.CategoryServiceImpl;
 import com.example.btl_web.utils.HttpUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
@@ -19,7 +19,7 @@ import java.util.Collections;
 
 @WebServlet(urlPatterns = Admin.CATEGORY_API)
 public class CategoryApi extends HttpServlet {
-    private CategoryService categoryService = CategoryServiceImpl.getInstance();
+    private CategoryService categoryService = ServiceConfiguration.getCategoryService();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         solveApi(req, resp);
@@ -50,12 +50,12 @@ public class CategoryApi extends HttpServlet {
         String successMessage = "";
         if(req.getMethod().equals(Request.POST_METHOD))
         {
-            validCategory = categoryService.validCategoryCreate(category, errors);
+            validCategory = categoryService.validCategoryCreate(category, errors, user.getUserId());
             successMessage = "Thêm thể loại thành công!";
         }
         else if(req.getMethod().equals(Request.PUT_METHOD) || req.getMethod().equals(Request.DELETE_METHOD))
         {
-            validCategory = categoryService.validCategoryUpdate(category, errors);
+            validCategory = categoryService.validCategoryUpdate(category, errors, user.getUserId());
             successMessage = "Cập nhật thành công!";
         }
         ObjectMapper mapper = new ObjectMapper();

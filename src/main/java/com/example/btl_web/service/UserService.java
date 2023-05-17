@@ -9,13 +9,12 @@ public interface UserService{
     List<UserDto> findAll(Pageable pageable, UserDto dto);
     List<UserDto> findAllInclude(Pageable pageable, UserDto dto);
     UserDto findOneById(Long userId);
-    long countUsers();
+    long countUsers(UserDto countDto);
     UserDto login(String userName, String passWord);
-    int signUp(String userName, String passWord, String passWord_2, String email);
     Long saveUser(UserDto userDto);
     Long updateUser(UserDto dto);
     boolean validateSignUp(UserDto user, String[] errors);
     boolean validUpdate(UserDto user, String[] errors);
     boolean updateLastAction(UserDto user);
-    Long checkLastAction(Long userId);
+    String checkLastAction(Long userId);
 }

@@ -1,4 +1,5 @@
 package com.example.btl_web.dto;
+import com.example.btl_web.configuration.ServiceConfiguration;
 import com.example.btl_web.service.CategoryService;
 import com.example.btl_web.service.impl.CategoryServiceImpl;
 import com.example.btl_web.utils.BytePartUtils;
@@ -87,7 +88,7 @@ public class BlogDto {
 
     public void setCategories(Long[] categoryIds) {
         this.categories = new ArrayList<>();
-        CategoryService categoryService = CategoryServiceImpl.getInstance();
+        CategoryService categoryService = ServiceConfiguration.getCategoryService();
         for(Long categoryId: categoryIds)
         {
             CategoryDto categoryDto = new CategoryDto();

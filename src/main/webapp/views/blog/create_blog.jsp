@@ -58,13 +58,11 @@
 
                     <p id="error3"></p>
                     <label>Chọn thể loại:</label>
-                    <select>
-                        <c:forEach var="category" items="${categories}" varStatus="loop">
-                            <label>${category.name}</label>
-                            <input type="checkbox" id="category-${loop.index}" value="${category.categoryId}">
-                            <br>
-                        </c:forEach>
-                    </select>
+                    <c:forEach var="category" items="${categories}" varStatus="loop">
+                        <label>${category.name}</label>
+                        <input type="checkbox" id="category-${loop.index}" value="${category.categoryId}">
+                        <br>
+                    </c:forEach>
 
                     <p id="error4"></p>
                     <textarea class="content-length" id='edit' style="margin-top: 30px;" placeholder="Type some text">

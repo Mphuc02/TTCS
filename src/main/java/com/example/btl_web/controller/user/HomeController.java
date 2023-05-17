@@ -1,13 +1,12 @@
 package com.example.btl_web.controller.user;
 
+import com.example.btl_web.configuration.ServiceConfiguration;
 import com.example.btl_web.dto.BlogDto;
 import com.example.btl_web.dto.CategoryDto;
 import com.example.btl_web.paging.PageRequest;
 import com.example.btl_web.paging.Pageable;
 import com.example.btl_web.service.BlogService;
 import com.example.btl_web.service.CategoryService;
-import com.example.btl_web.service.impl.BlogServiceImpl;
-import com.example.btl_web.service.impl.CategoryServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,8 +19,8 @@ import java.util.List;
 
 @WebServlet("")
 public class HomeController extends HttpServlet {
-    private BlogService blogService = BlogServiceImpl.getInstance();
-    private CategoryService categoryService = CategoryServiceImpl.getInstance();
+    private BlogService blogService = ServiceConfiguration.getBlogService();
+    private CategoryService categoryService = ServiceConfiguration.getCategoryService();
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String keyWord = request.getParameter("sortName");
         String categorySearch = request.getParameter("categorySearch");
@@ -31,7 +30,7 @@ public class HomeController extends HttpServlet {
         blogApproved.setStatus(1);
 
         CategoryDto dto = null;
-        if(categorySearch != null)
+        if(categorySearch != null && !categorySearch.isEmpty())
         {
             dto = new CategoryDto();
             dto.setCategoryId(Long.parseLong(categorySearch));

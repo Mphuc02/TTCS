@@ -1,5 +1,6 @@
 package com.example.btl_web.controller.admin;
 
+import com.example.btl_web.configuration.ServiceConfiguration;
 import com.example.btl_web.constant.Constant.*;
 import com.example.btl_web.dto.BlogDto;
 import com.example.btl_web.paging.PageRequest;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @WebServlet(urlPatterns = Admin.BLOGS_PAGE)
 public class BlogController extends HttpServlet {
-    private BlogService blogService = BlogServiceImpl.getInstance();
+    private BlogService blogService = ServiceConfiguration.getBlogService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long totalBlog = blogService.countBlogs(null);

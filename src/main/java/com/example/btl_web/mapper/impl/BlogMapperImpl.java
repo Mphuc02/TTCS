@@ -1,21 +1,19 @@
 package com.example.btl_web.mapper.impl;
 
-import com.example.btl_web.dto.BlogDto;
+import com.example.btl_web.configuration.ServiceConfiguration;
 import com.example.btl_web.dto.UserDto;
 import com.example.btl_web.mapper.RowMapper;
 import com.example.btl_web.model.Blog;
 import com.example.btl_web.service.UserBlogService;
 import com.example.btl_web.service.UserService;
-import com.example.btl_web.service.impl.UserBlogServiceImpl;
-import com.example.btl_web.service.impl.UserServiceimpl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 public class BlogMapperImpl implements RowMapper {
-    private UserService userService = UserServiceimpl.getInstance();
-    private UserBlogService userBlogService = UserBlogServiceImpl.getInstance();
+    private UserService userService = ServiceConfiguration.getUserService();
+    private UserBlogService userBlogService = ServiceConfiguration.getUserBlogService();
     @Override
     public Object mapper(ResultSet resultSet) {
         Blog blog = new Blog();

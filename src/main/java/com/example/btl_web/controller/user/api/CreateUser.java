@@ -1,9 +1,9 @@
 package com.example.btl_web.controller.user.api;
 
+import com.example.btl_web.configuration.ServiceConfiguration;
 import com.example.btl_web.constant.Constant.*;
 import com.example.btl_web.dto.UserDto;
 import com.example.btl_web.service.UserService;
-import com.example.btl_web.service.impl.UserServiceimpl;
 import com.example.btl_web.utils.HttpUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
@@ -17,7 +17,7 @@ import java.util.Collections;
 
 @WebServlet(urlPatterns = User.USER_CREATE_API)
 public class CreateUser extends HttpServlet {
-    private UserService userService = UserServiceimpl.getInstance();
+    private UserService userService = ServiceConfiguration.getUserService();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");

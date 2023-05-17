@@ -1,8 +1,8 @@
 package com.example.btl_web.controller.admin.api;
 
+import com.example.btl_web.configuration.ServiceConfiguration;
 import com.example.btl_web.dto.UserDto;
 import com.example.btl_web.service.UserService;
-import com.example.btl_web.service.impl.UserServiceimpl;
 import com.example.btl_web.utils.HttpUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
@@ -13,11 +13,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 @WebServlet(urlPatterns = Admin.USER_API)
 public class UserApi extends HttpServlet {
-    private UserService userService = UserServiceimpl.getInstance();
+    private UserService userService = ServiceConfiguration.getUserService();
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
