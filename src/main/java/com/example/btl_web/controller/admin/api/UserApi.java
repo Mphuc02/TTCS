@@ -34,7 +34,7 @@ public class UserApi extends HttpServlet {
         resp.setContentType("application/json");
         UserDto user = HttpUtils.of(req.getReader()).toModel(UserDto.class);
 
-        String errors[] = new String[4];
+        String errors[] = new String[5];
         boolean validStatus = userService.validUpdate(user, errors);
         ObjectMapper mapper = new ObjectMapper();
 

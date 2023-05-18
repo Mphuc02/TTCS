@@ -37,7 +37,7 @@ public class JwtRequestFilter implements Filter {
                 }
                 else
                 {
-                    response.sendRedirect(request.getContextPath() + "/login?action=not_permission");
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
                 }
             }
         }
@@ -76,7 +76,6 @@ public class JwtRequestFilter implements Filter {
             if(cookie.getName().equals(Jwt.JWT_NAME))
             {
                 jwt = cookie.getValue();
-                System.out.println(jwt);
                 break;
             }
         }

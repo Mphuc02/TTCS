@@ -24,15 +24,14 @@ public class JwtUtils {
         Date timeExpirate = new Date(timeNow.getTime() + oneDayTime);
 
         String jwt = Jwts.builder().
-                     setSubject(user.getUserName()). //Đặt giá trị của subject
+                     setSubject(user.getUserId() + ""). //Đặt chủ thể của subject
                      setIssuedAt(timeNow). //Đặt ngày khởi tạo của token
                      setExpiration(timeExpirate). //Token sẽ hết hạn sau 24h
-                     claim("userId", user.getUserId()).
                      claim("role", user.getRole()).
                      signWith(SignatureAlgorithm.HS256, Jwt.SIGNING_KEY).
                      compact();
 
-        //Todo: cho phần addCookie này vào 1 hàm dùng chung
+        //Todo: cho phần addCookie này và phần removeAToken vào 1 hàm dùng chung
         //Thêm vào 1 Cookie
         Cookie jwtCookie = new Cookie(Jwt.JWT_NAME, jwt);
         jwtCookie.setMaxAge(60 * 60 * 24); //Đặt thời gian hết hạn của cookie là 1 tuần
@@ -62,14 +61,12 @@ public class JwtUtils {
         UserDto user = new UserDto();
 
         Claims claims = getAllClaimsFromToken(jwt);
-        String userName = claims.getSubject();
         Long userId = claims.get("userId", Long.class);
         String role = claims.get("role", String.class);
 
         //Todo: Thực hiện tìm kiếm người dùng này trong cơ sở dữ liệu
 
         user.setUserId(userId);
-        user.setUserName(userName);
         user.setRole(role);
 
         return user;

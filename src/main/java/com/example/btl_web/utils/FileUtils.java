@@ -14,9 +14,9 @@ public class FileUtils {
 
         // Tạo đối tượng Cloudinary
         Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-                "cloud_name", "dwlv4qogn",
-                "api_key", "617883759449822",
-                "api_secret", "b7Y5H4s1xPLJIaMHBr0AxFa9iQc"));
+                "cloud_name", "dna9jawbi",
+                "api_key", "418723273453539",
+                "api_secret", "saDQGse7P5qcw9_9bA6IFT1MOKE"));
 
         // Lưu ảnh vào Cloudinary
 

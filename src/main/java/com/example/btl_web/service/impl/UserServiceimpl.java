@@ -78,8 +78,8 @@ public class UserServiceimpl implements UserService {
         String encryptPassword = hashPasswordService.encryptPassword(userDto.getPassWord());
         userDto.setPassWord(encryptPassword); //Mã hoá password
         Date timeStamp = new Date();
-        String sql = "INSERT INTO USERS (email, password, created_at, role, username, last_action, status) VALUES (?, ?, ?, ?, ?, ?, 1)";
-        return userDao.saveUser(sql,userDto.getEmail(), userDto.getPassWord(), timeStamp.getTime(), "USER", userDto.getUserName(), timeStamp.getTime());
+        String sql = "INSERT INTO USERS (email, password, created_at, role, username, last_action, status, full_name) VALUES (?, ?, ?, ?, ?, ?, 1, ?)";
+        return userDao.saveUser(sql,userDto.getEmail(), userDto.getPassWord(), timeStamp.getTime(), "USER", userDto.getUserName(), timeStamp.getTime(), userDto.getFullName());
     }
 
     @Override
@@ -134,6 +134,7 @@ public class UserServiceimpl implements UserService {
             check = false;
             errors[3] = "Email không đúng định dạng";
         }
+
         UserDto checkEmailExisted = new UserDto();
         checkEmailExisted.setEmail(user.getEmail());
         if(!findAll(null, checkEmailExisted).isEmpty())
@@ -142,6 +143,11 @@ public class UserServiceimpl implements UserService {
             errors[3] = "Email này đã được đăng ký";
         }
 
+        if(user.getFullName() == null || user.getFullName().equals(""))
+        {
+            check = false;
+            errors[4] = "Tên người dùng không được để trống!";
+        }
         return check;
     }
 
@@ -173,6 +179,7 @@ public class UserServiceimpl implements UserService {
 
     @Override
     public String checkLastAction(Long userId) {
+        //Todo: Mở lại comment đoọn code này sau thi thêm dữ liệu hoàn thành
         UserDto validUser = findOneById(userId);
         Long timenow = (new Date()).getTime();
         Long lastAction = validUser.getLastAction();

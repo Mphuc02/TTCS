@@ -37,7 +37,7 @@ public class LoginController extends HttpServlet {
             else if(action.equals(User.ACTION_LOG_OUT))
             {
                 req.setAttribute("message", "Đăng xuất thành công!");
-                //Thực hiện xoá cookie này
+                //Khi đăng xuất phải thực hiện xóa token
                 JwtUtils.getInstance().removeAToken(resp);
             }
             if(action.equals("sign-up-success"))
