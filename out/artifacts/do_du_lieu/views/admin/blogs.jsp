@@ -35,14 +35,16 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="float-left">
-                                    <form action="#">
+                                    <form action="/admin/blogs" method="post">
                                         <div class="tim-kiem">
-                                            <input type="text" placeholder="Tìm Kiếm" class="search">
-                                            <button class="btn btn-search">
-                                                <a href="#" class="title">Tìm Kiếm</a>
-                                            </button>
+                                            <input type="text" placeholder="Tìm Kiếm" class="search" name="keySearch" value="${keySearch}">
+                                            <button class="btn btn-search">Tìm kiếm</button>
                                         </div>
                                     </form>
+
+                                    <c:if test="${not empty keySearch}" >
+                                        <p>Tìm kiếm truyện theo từ khoá: ${keySearch}</p>
+                                    </c:if>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -64,9 +66,9 @@
                                                 <a href="/blogs/${blog.blogId}">
                                                     <td>${loop.index + 1}</td>
                                                     <td>${blog.title}</td>
-                                                    <td>${blog.user.userId}</td>
+                                                    <td>${blog.user.fullName}</td>
                                                     <td>${blog.createdAt}</td>
-                                                    <td>0</td>
+                                                    <td>${blog.likedUsers.size()}</td>
                                                     <td>
                                                         <c:if test="${blog.status == 0}"><p id="blog-status">Đã bị ẩn</p></c:if>
                                                         <c:if test="${blog.status == 1}"><p id="blog-status">Đã được đuyệt</p></c:if>

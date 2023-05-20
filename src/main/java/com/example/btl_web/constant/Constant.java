@@ -6,8 +6,8 @@ public class Constant {
     public static final String USER_MODEL = "USER_MODEL";
     public static final String LOGIN_JSP = "/views/login/login.jsp";
     public static final String REGISTRAION_JSP = "/views/registraion/registraion.jsp";
-    public static final String USER_NAME = "username";
-    public static final String PASS_WORD = "password";
+    public static final String USER_NAME = "userName";
+    public static final String PASS_WORD = "passWord";
     public static class User
     {
         public static final String ACTION = "action";
@@ -24,6 +24,8 @@ public class Constant {
         public static final String USER_CREATE_API = "/api-create-user";
         public static final String USER_COMMENT_API = "/api-create-comment";
         public static final String USER_LIKE_API = "/api-create-like";
+        public static final String USER_DETAIL_PAGE = "/user/*";
+        public static final String USER_DETAIL_JSP = "/views/user/user_detail.jsp";
     }
     public static class Admin
     {

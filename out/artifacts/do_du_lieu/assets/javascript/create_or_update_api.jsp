@@ -20,12 +20,4 @@
         // Gửi đối tượng JSON
         xhr.send(JSON.stringify(data));
     }
-
-    //Khi bấm enter, ngăn form không submit đến url được khai báo và đồng thời thực hiện gửi json
-    document.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            setupData();
-        }
-    });
 </script>

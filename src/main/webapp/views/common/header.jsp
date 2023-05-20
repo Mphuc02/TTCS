@@ -52,7 +52,7 @@
                 <div class="avatar_ndung">
                     <ul class="avatar_menu" id="menu">
                         <li>
-                            <a href="#">
+                            <a href="/user/${USER_MODEL.userId}">
                                 <i class="avatar_icon ti-user"></i>
                                 Cá nhân</a>
                         </li>

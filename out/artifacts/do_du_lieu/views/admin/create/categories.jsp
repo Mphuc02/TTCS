@@ -30,21 +30,18 @@
                                     <h2>Thêm thể loại</h2>
                                 </div>
                                 <div class="card-body">
-                                    <form class="form-group mt-4" id="formSubmit">
-                                        <input type="hidden" id="categoryId" name="categoryId" value = ${category.categoryId}>
-                                        <input type="hidden" id="userId" value="${category.userId}">
-                                        <input type="hidden" id="createdAt" value="${category.createdAt}">
+                                    <input type="hidden" id="categoryId" name="categoryId" value = ${category.categoryId}>
+                                    <input type="hidden" id="userId" value="${category.userId}">
+                                    <input type="hidden" id="createdAt" value="${category.createdAt}">
 
-                                        <label>Thể loại</label>
-                                        <p id="name-error"></p>
-                                        <input type="text" class="form-control" name="name" id="name" placeholder="Tên thể loại" value="${category.name}">
+                                    <label>Thể loại</label>
+                                    <p id="name-error"></p>
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Tên thể loại" value="${category.name}">
 
-                                        <button type="button" onclick="setupData()" class="btn btn-success mr-2">
-                                            <i class="fa-solid fa-floppy-disk mr-1"></i>
-                                            <a href="#" class="title">Lưu</a>
-                                        </button>
-
-                                    </form>
+                                    <button type="button" onclick="setupData()" class="btn btn-success mr-2">
+                                        <i class="fa-solid fa-floppy-disk mr-1"></i>
+                                        <a href="#" class="title">Lưu</a>
+                                    </button>
                                 </div>
                                 <div class="card-footer">
                                     <a href="/admin/categories" class="btn btn-primary">

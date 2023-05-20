@@ -34,14 +34,15 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="float-left">
-                                    <form action="#">
+                                    <form action="" method="get">
                                         <div class="tim-kiem">
-                                            <input type="text" placeholder="Tìm Kiếm" class="search">
-                                            <button class="btn btn-search">
-                                                <a href="#" class="title">Tìm Kiếm</a>
-                                            </button>
+                                            <input type="text" placeholder="Tìm Kiếm" class="search" name="search-category" value="${keySearch}">
+                                            <button class="btn btn-search">Tìm kiếm</button>
                                         </div>
                                     </form>
+                                    <c:if test="${not empty keySearch}" >
+                                        <p>Tìm kiếm thể loại theo từ khoá: ${keySearch}</p>
+                                    </c:if>
                                 </div>
                                 <div class="float-right">
                                     <a href="/admin/categories/edit/-1" class="btn btn-outline-primary">Thêm thể loại</a>

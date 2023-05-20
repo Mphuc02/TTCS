@@ -34,14 +34,16 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="float-left">
-                                    <form action="#">
+                                    <form action="" method="get">
                                         <div class="tim-kiem">
-                                            <input type="text" placeholder="Tìm Kiếm" class="search">
-                                            <button class="btn btn-search">
-                                                <a href="#" class="title">Tìm Kiếm</a>
-                                            </button>
+                                            <input type="text" placeholder="Tìm Kiếm" class="search" name="searchName" value="${searchName}">
+                                            <button class="btn btn-search">Tìm kiếm</button>
                                         </div>
                                     </form>
+
+                                    <c:if test="${not empty searchName}">
+                                        <p>Tìm kiếm các tài khoản theo từ khoá: ${searchName}</p>
+                                    </c:if>
                                 </div>
                             </div>
                             <div class="card-body">

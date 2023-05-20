@@ -31,6 +31,8 @@ public class JwtUtils {
                      signWith(SignatureAlgorithm.HS256, Jwt.SIGNING_KEY).
                      compact();
 
+        //Token sau khi được ký thì sẽ có dạng base64
+
         //Todo: cho phần addCookie này và phần removeAToken vào 1 hàm dùng chung
         //Thêm vào 1 Cookie
         Cookie jwtCookie = new Cookie(Jwt.JWT_NAME, jwt);
@@ -61,7 +63,7 @@ public class JwtUtils {
         UserDto user = new UserDto();
 
         Claims claims = getAllClaimsFromToken(jwt);
-        Long userId = claims.get("userId", Long.class);
+        Long userId = Long.valueOf(claims.getSubject());
         String role = claims.get("role", String.class);
 
         //Todo: Thực hiện tìm kiếm người dùng này trong cơ sở dữ liệu

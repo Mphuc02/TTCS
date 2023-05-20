@@ -45,6 +45,7 @@
             <p>${blog.content}</p>
 
             <h4 style="display: flex; justify-content: center;">---End---</h4> <br>
+            <p>${blog.user.fullName}</p>
         </div>
 
         <div class="sidebar">
