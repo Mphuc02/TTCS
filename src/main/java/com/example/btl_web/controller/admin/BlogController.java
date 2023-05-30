@@ -21,8 +21,6 @@ public class BlogController extends HttpServlet {
     private BlogService blogService = ServiceConfiguration.getBlogService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        BlogService blogService = ServiceConfiguration.getBlogService();
-
         StringBuilder pageUrl = new StringBuilder(Admin.BLOGS_PAGE + "?");
 
         BlogDto searchDto = null;

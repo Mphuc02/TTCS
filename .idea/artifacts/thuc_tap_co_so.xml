@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="do_du_lieu">
-    <output-path>$PROJECT_DIR$/out/artifacts/do_du_lieu</output-path>
+  <artifact type="exploded-war" name="thuc_tap_co_so">
+    <output-path>$PROJECT_DIR$/out/artifacts/thuc_tap_co_so</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
